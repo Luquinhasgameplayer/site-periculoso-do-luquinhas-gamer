@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projeto Site</title>
+
+  <!-- Fonte Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* ====== Reset ====== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #1a000d;
+      color: #f5f5f5;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+
+    a:hover { color: #d4af37; }
+
+    /* ====== Header ====== */
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(30,0,10,0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(212,175,55,0.4);
+    }
+
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: #d4af37;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+      text-shadow: 0 0 15px rgba(212,175,55,0.6);
+    }
+
+    nav a {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      margin: 0 1rem;
+    }
+
+    nav a:hover,
+    nav a.ativo { color: #d4af37; text-shadow: 0 0 10px rgba(212,175,55,0.8); }
+
+    /* ====== Hero ====== */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      background: url("./fundo/Prod.Strazeio.jpg") no-repeat center center/cover;
+      background-attachment: fixed;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(10,0,5,0.7);
+    }
+
+    .hero h2 {
+      position: relative;
+      z-index: 1;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: #d4af37;
+      text-shadow: 0 0 25px rgba(212,175,55,0.7);
+      margin-bottom: 1rem;
+    }
+
+    .hero p,
+    .hero .player {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Botão Catálogo */
+    .catalogo-btn {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      background: linear-gradient(135deg, #d4af37, #800020);
+      color: #1a000d;
+      font-weight: 600;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 25px rgba(212,175,55,0.6);
+      margin-bottom: 1rem;
+    }
+
+    .catalogo-btn:hover {
+      background: linear-gradient(135deg, #800020, #d4af37);
+      color: #fff;
+      box-shadow: 0 0 30px rgba(212,175,55,0.9);
+    }
+
+    /* ====== Catálogo ====== */
+    .catalogo {
+      padding: 5rem 2rem;
+      background: #2b0012;
+    }
+
+    .catalogo h3 {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: #d4af37;
+      text-shadow: 0 0 15px rgba(212,175,55,0.6);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: #3a0018;
+      padding: 1.5rem;
+      border-radius: 15px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(212,175,55,0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .card h4 { color: #d4af37; margin-bottom: 0.5rem; }
+    .card p { color: #ccc; }
+    .card .price { color: #d4af37; font-weight: bold; margin: 1rem 0; }
+
+    .card button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #d4af37, #800020);
+      color: #1a000d;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+      margin-top: 0.5rem;
+    }
+
+    .card button:hover {
+      background: linear-gradient(135deg, #800020, #d4af37);
+      color: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(212,175,55,0.7);
+    }
+
+    /* ====== Modal ====== */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(26,0,13,0.95);
+      backdrop-filter: blur(10px);
+      justify-content: center;
+      align-items: center;
+      overflow: auto;
+      padding: 2rem;
+    }
+
+    .modal-content {
+      background: #1a000d;
+      border-radius: 20px;
+      max-width: 900px;
+      width: 100%;
+      padding: 2rem;
+      color: #d4af37;
+      box-shadow: 0 0 40px rgba(212,175,55,0.5);
+      position: relative;
+    }
+
+    .modal .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #d4af37;
+    }
+
+    .modal .close:hover { color: #fff; }
+
+    .modal-body {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .modal-image {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .modal-image img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 15px;
+      border: 3px solid #d4af37;
+      box-shadow: 0 0 20px rgba(212,175,55,0.5);
+    }
+
+    /* ====== Player Customizado ====== */
+    .player-custom {
+      background: #2b0012;
+      border: 2px solid #d4af37;
+      border-radius: 15px;
+      padding: 10px;
+      width: 100%;
+      max-width: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .player-custom button {
+      background: linear-gradient(135deg, #d4af37, #800020);
+      color: #1a000d;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .player-custom button:hover {
+      background: linear-gradient(135deg, #800020, #d4af37);
+      color: #fff;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(212,175,55,0.3);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress {
+      width: 0%;
+      height: 100%;
+      background: #d4af37;
+      border-radius: 5px;
+      transition: width 0.1s;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #0f0006;
+      color: #b9b9b9;
+      font-size: 0.9rem;
+      border-top: 1px solid rgba(212,175,55,0.3);
+    }
+
+    @media (max-width:768px){.hero{background-attachment:scroll}}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>Prod.Strazeio</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="Mídias.html">Mídias</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h2>Os melhores beats a partir de 15$.</h2>
+    <div class="player">
+      <a href="#catalogo" class="catalogo-btn">Ver Catálogo</a>
+    </div>
+    <p>Explore nosso catálogo de beats exclusivos.</p>
+  </section>
+
+<!-- Catálogo -->
+
+  <!-- Card 1 -->
+
+  <section class="catalogo" id="catalogo">
+    <h3>Catálogo de Beats</h3>
+    <div class="grid">
+      <div class="card" data-audio="The Box Type Beat.mp3" data-style="Trap" data-bpm="85 BPM" data-price="$15">
+        <h4>The Box Medley Type Beat</h4>
+        <p>Trap</p>
+        <p class="price">$15</p>
+        <button class="view-btn">Ver</button>
+      </div>
+
+      <!-- Card 2 -->
+
+<div class="card" data-audio="Yunk Vino & Wiu Type Beat.mp3" data-style="Lo-Fi" data-bpm="72 BPM" data-price="$10">
+  <h4>Yunk Vino & Wiu Type Beat</h4>
+  <p>Trap • 72 BPM</p>
+  <p class="price">$10</p>
+  <button class="view-btn">Ver</button>
+</div>
+
+
+      <!-- Card 3 -->
+<div class="card" data-audio="Playboi Carty Type Beat.mp3" data-style="Drill" data-bpm="140 BPM" data-price="$20">
+  <h4>PlayBoi Carti Type Beat</h4>
+  <p>Trap/Rock • 140 BPM</p>
+  <p class="price">$20</p>
+  <button class="view-btn">Ver</button>
+</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 @Prod.Strazeio — Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Modal premium -->
+  <div id="beatModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="modal-body">
+        <div class="modal-image">
+          <img src="./fundo/Prod.Strazeio.jpg" alt="Beat" />
+          <div class="player-custom">
+            <button id="play-btn">▶ Play</button>
+            <div class="progress-bar"><div class="progress"></div></div>
+          </div>
+        </div>
+        <div class="modal-info">
+          <h3 id="modal-title">Título do Beat</h3>
+          <p id="modal-style">Estilo: </p>
+          <p id="modal-bpm">BPM: </p>
+          <p id="modal-price">Preço: </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal
+    const modal = document.getElementById('beatModal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalStyle = document.getElementById('modal-style');
+    const modalBpm = document.getElementById('modal-bpm');
+    const modalPrice = document.getElementById('modal-price');
+    const playBtn = document.getElementById('play-btn');
+    const progress = document.querySelector('.progress');
+    let audio = new Audio();
+
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.card');
+        modalTitle.innerText = card.querySelector('h4').innerText;
+        modalStyle.innerText = "Estilo: " + card.dataset.style;
+        modalBpm.innerText = "BPM: " + card.dataset.bpm;
+        modalPrice.innerText = "Preço: " + card.dataset.price;
+        audio.src = `audio/${card.dataset.audio}`;
+        audio.currentTime = 0;
+        modal.style.display = 'flex';
+
+        modal.classList.add('show')
+      });
+    });
+
+    playBtn.addEventListener('click', () => {
+      if(audio.paused){ audio.play(); playBtn.textContent = '❚❚ Pause'; }
+      else{ audio.pause(); playBtn.textContent = '▶ Play'; }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      const percent = (audio.currentTime / audio.duration) * 100;
+      progress.style.width = percent + '%';
+    });
+
+    const closeBtn = document.querySelector('.modal .close');
+    closeBtn.addEventListener('click', () => { modal.style.display='none'; audio.pause(); playBtn.textContent='▶ Play'; });
+    window.addEventListener('click', e => { if(e.target === modal){ modal.style.display='none'; audio.pause(); playBtn.textContent='▶ Play'; } });
+  </script>
+</body>
+</html>
