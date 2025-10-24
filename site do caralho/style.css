@@ -122,11 +122,31 @@ nav a.ativo {
   box-shadow: 0 0 30px rgba(212, 175, 55, 0.9);
 }
 
-@media (max-width: 768px) {
+/* Hero padrão */
+.hero {
+  background-image: url('sua-imagem.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+/* Parallax só no desktop */
+@media (min-width: 769px) {
   .hero {
-    background-attachment: scroll;
+    background-attachment: fixed; /* efeito parallax */
   }
 }
+
+/* Ajuste para mobile */
+@media (max-width: 768px) {
+  .hero {
+    background-attachment: scroll; /* desativa parallax no mobile */
+    height: auto;
+    min-height: 100vh;
+  }
+}
+
 
 /* ====== Catálogo ====== */
 .catalogo {
