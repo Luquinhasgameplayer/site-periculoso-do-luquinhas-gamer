@@ -131,19 +131,43 @@ nav a.ativo {
   height: 100vh;
 }
 
-/* Parallax só no desktop */
-@media (min-width: 769px) {
-  .hero {
-    background-attachment: fixed; /* efeito parallax */
+/* Responsive modal */
+@media (max-width: 968px) {
+  .product-modal-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .modal-thumbnails {
+    flex-direction: row;
+    order: 2;
+  }
+
+  .modal-main-image {
+    order: 1;
+  }
+
+  .modal-product-details {
+    order: 3;
+  }
+
+  .modal-product-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-product-price {
+    font-size: 2rem;
   }
 }
 
-/* Ajuste para mobile */
-@media (max-width: 768px) {
-  .hero {
-    background-attachment: scroll; /* desativa parallax no mobile */
-    height: auto;
-    min-height: 100vh;
+@media (max-width: 640px) {
+  .product-modal {
+    padding: 2rem 1.5rem;
+  }
+
+  .modal-thumbnail {
+    width: 60px;
+    height: 60px;
   }
 }
 
